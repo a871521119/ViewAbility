@@ -8,3 +8,6 @@ local.properties
 captures/
 .externalNativeBuild/
 .cxx/
+
+# 文档与文章属于本地资料，不纳入源码仓库提交。
+docs/
