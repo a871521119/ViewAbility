@@ -134,3 +134,5 @@ Android 没有对任意 View 提供“用户实际看到的像素”API，因此
 - [`docs/images/viewability-lifecycle-flow.png`](docs/images/viewability-lifecycle-flow.png)
 - [`docs/images/viewability-occlusion-math.png`](docs/images/viewability-occlusion-math.png)
 - [`docs/images/viewability-formulas.png`](docs/images/viewability-formulas.png)
+
+GitHub 上传步骤见 [`docs/GITHUB_UPLOAD.md`](docs/GITHUB_UPLOAD.md)。
