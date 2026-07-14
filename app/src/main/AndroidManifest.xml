@@ -32,6 +32,9 @@
         <activity
             android:name=".ScrollChildActivity"
             android:label="Scroll 子 View 曝光检测" />
+        <activity
+            android:name=".MultiViewActivity"
+            android:label="多个 View 同时曝光检测" />
     </application>
 
 </manifest>

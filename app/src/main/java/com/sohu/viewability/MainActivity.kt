@@ -65,6 +65,14 @@ class MainActivity : ComponentActivity() {
                     ) {
                         Text("场景三：Scroll 组件中的视图")
                     }
+
+                    /** 打开同一页面同时监测多个 View 的并行检测场景。 */
+                    Button(
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = { startActivity(Intent(this@MainActivity, MultiViewActivity::class.java)) },
+                    ) {
+                        Text("场景四：多个 View 同时检测")
+                    }
                 }
             }
         }
