@@ -9,5 +9,9 @@ captures/
 .externalNativeBuild/
 .cxx/
 
-# 文档与文章属于本地资料，不纳入源码仓库提交。
-docs/
+# 文档、脚本和文章默认只保留在本地，不纳入源码仓库提交。
+docs/*
+
+# 技术文章依赖的图片作为仓库资源提交。
+!docs/images/
+!docs/images/**
