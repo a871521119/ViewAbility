@@ -5,17 +5,18 @@
 ## 工程结构
 
 - `viewability`：独立 Android library，可输出 AAR；只暴露 `ViewAbilityMonitor`、`ViewAbilityConfig`、`ViewAbilityReport` 和 `ViewAbilityHandle`。
-- `app`：Kotlin + Jetpack Compose Demo。三个场景分别放在 `SingleViewActivity`、`ListItemActivity`、`ScrollChildActivity` 中，互不共享页面状态，被监测对象始终是真实 Android `View`。
+- `app`：Kotlin + Jetpack Compose Demo。四个场景分别放在 `SingleViewActivity`、`ListItemActivity`、`ScrollChildActivity`、`MultiViewActivity` 中，互不共享页面状态，被监测对象始终是真实 Android `View`。
 
 ## Demo 场景
 
-Demo 页面顶部可以切换以下三种情况：
+Demo 页面顶部可以切换以下四种情况：
 
 1. **单个 View**：直接把广告内容 View 传给 SDK，点击“添加遮挡”可验证同层不透明浮层导致的可见比例下降。
 2. **列表指定 Item**：RecyclerView Adapter 在目标位置绑定完成后回调真实 Item View，SDK 监测的是该 Item，而不是整个列表。
 3. **Scroll 组件中的视图**：监测 ScrollView 长内容中的指定子 View，初始位于屏幕外，点击“滚动到目标”验证出屏/入屏和连续时长重新累计。
+4. **多个 View 同时检测**：同一页面内为多个广告位分别创建 Session，验证不同 View 的曝光状态、完成回调和关闭逻辑互不影响。
 
-三个场景都支持“重新监测”，会关闭旧句柄并在原有 View 上创建新的监测
+四个场景都支持“重新监测”，会关闭旧句柄并在原有 View 上创建新的监测
 Session，不重建 Android View，因此不会强制 ScrollView/RecyclerView 回到顶部，
 也会保留单个 View 当前手动设置的遮挡面积。
 
@@ -124,15 +125,3 @@ Android 没有对任意 View 提供“用户实际看到的像素”API，因此
 ```
 
 单元测试覆盖配置校验，以及遮挡矩形重叠/不重叠时面积并算法不重复计数的行为。
-
-## 技术文章与图示
-
-完整的架构、算法公式、工程痛点、生命周期设计、Demo 场景和上线建议见：
-
-- [`docs/有效触点框架技术文章.md`](docs/有效触点框架技术文章.md)
-- [`docs/images/viewability-architecture.png`](docs/images/viewability-architecture.png)
-- [`docs/images/viewability-lifecycle-flow.png`](docs/images/viewability-lifecycle-flow.png)
-- [`docs/images/viewability-occlusion-math.png`](docs/images/viewability-occlusion-math.png)
-- [`docs/images/viewability-formulas.png`](docs/images/viewability-formulas.png)
-
-GitHub 上传步骤见 [`docs/GITHUB_UPLOAD.md`](docs/GITHUB_UPLOAD.md)。
