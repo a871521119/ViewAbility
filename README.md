@@ -125,3 +125,49 @@ Android 没有对任意 View 提供“用户实际看到的像素”API，因此
 ```
 
 单元测试覆盖配置校验，以及遮挡矩形重叠/不重叠时面积并算法不重复计数的行为。
+
+## Maven Central 发布
+
+发布坐标预设为：
+
+```kotlin
+implementation("io.github.a871521119:viewability:1.0.0")
+```
+
+首次发布前，需要在 [Maven Central Portal](https://central.sonatype.com/) 使用 GitHub
+账号注册并验证 `io.github.a871521119` 命名空间，且为项目选择并提交开源许可证。随后把
+Portal User Token 与许可证信息放在 `~/.gradle/gradle.properties` 或 CI Secret 中：
+
+```properties
+POM_LICENSE_NAME=Apache License, Version 2.0
+POM_LICENSE_URL=https://www.apache.org/licenses/LICENSE-2.0.txt
+mavenCentralUsername=<Portal User Token 用户名>
+mavenCentralPassword=<Portal User Token 密码>
+```
+
+本机发布默认调用 `gpg` 使用 `~/.gnupg` 中的私钥签名，不需要导出或配置私钥。
+只有 CI 发布时，才需要额外设置 `signingInMemoryKey` 与
+`signingInMemoryKeyPassword` 两个 Secret。
+
+首次本机发布前，安装 GnuPG、创建带密码的签名密钥，并发布公钥：
+
+```bash
+brew install gnupg
+gpg --full-generate-key
+gpg --list-secret-keys --keyid-format=long
+gpg --keyserver keyserver.ubuntu.com --send-keys <主密钥指纹>
+```
+
+先构建并检查本地制品：
+
+```bash
+./gradlew :viewability:publishReleasePublicationToMavenLocal
+```
+
+确认内容后提交到 Central Portal（默认停在 Portal 中等待人工点击 Publish，不会自动公开）：
+
+```bash
+./gradlew :viewability:publishToMavenCentral
+```
+
+同一坐标版本一旦公开到 Maven Central 便不可覆盖或删除；修复应发布新版本。
